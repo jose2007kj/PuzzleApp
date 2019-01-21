@@ -1,14 +1,10 @@
 package com.slideingpuzzle.puzzleapp;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -21,7 +17,7 @@ import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
     private int NO_OF_PIECES;
-    private final String BUTTON_NAME_PREFIX = "btn";
+    private String BUTTON_NAME_PREFIX;
     int time_to_solve_puzzle = 1;
 
     //an array of buttons
@@ -60,6 +56,7 @@ public class GameActivity extends AppCompatActivity {
             case "Level 1 (2x2)":
                 // assuming your Wizard content is in content_wizard.xml
                 NO_OF_PIECES = 4;
+                BUTTON_NAME_PREFIX = "btn";
                 View wizardView = getLayoutInflater()
                         .inflate(R.layout.levelone, dynamicContent, false);
 
@@ -67,10 +64,11 @@ public class GameActivity extends AppCompatActivity {
                 dynamicContent.addView(wizardView);
                             break;
             case "Level 2 (3x3)":
-                NO_OF_PIECES = 16;
+                NO_OF_PIECES = 9;
+                BUTTON_NAME_PREFIX = "l2btn";
                 // assuming your Wizard content is in content_wizard.xml
                 View level2 = getLayoutInflater()
-                        .inflate(R.layout.content_main, dynamicContent, false);
+                        .inflate(R.layout.leveltwo, dynamicContent, false);
 
 // add the inflated View to the layout
                 dynamicContent.addView(level2);
@@ -78,8 +76,9 @@ public class GameActivity extends AppCompatActivity {
             default:
                 // assuming your Wizard content is in content_wizard.xml
                 NO_OF_PIECES = 16;
+                BUTTON_NAME_PREFIX = "l3btn";
                 View level3 = getLayoutInflater()
-                        .inflate(R.layout.content_main, dynamicContent, false);
+                        .inflate(R.layout.levelthree, dynamicContent, false);
 
 // add the inflated View to the layout
                 dynamicContent.addView(level3);
@@ -97,8 +96,10 @@ public class GameActivity extends AppCompatActivity {
         btn = new Button[NO_OF_PIECES];
         correct_id_seq = new int[NO_OF_PIECES];
         rand_id_seq = new int[NO_OF_PIECES];
+
         // get buttons
         for(int i = 0; i < NO_OF_PIECES; i++) {
+            Log.d("id","button prefix is"+BUTTON_NAME_PREFIX);
             Log.d("id","resources :"+this.getResources().getIdentifier(BUTTON_NAME_PREFIX + Integer.toString(i),"id", this.getPackageName()));
 
             btn[i] = (Button) findViewById(this.getResources().getIdentifier(
@@ -111,7 +112,7 @@ public class GameActivity extends AppCompatActivity {
 
                 break;
             case "Level 2 (3x3)":
-                play_game(10, "c");
+                play_game(10, "g3x3c");
 
                 break;
             default:

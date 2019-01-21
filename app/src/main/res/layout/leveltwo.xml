@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameActivity"
+    tools:layout_editor_absoluteY="81dp">
+
+    <Button
+        android:id="@+id/l2btn5"
+        android:layout_width="60dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
+        android:background="@drawable/g3x3c5"
+        android:onClick="on_click_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/l2btn7"
+        app:layout_constraintTop_toBottomOf="@+id/l2btn2" />
+
+    <Button
+        android:id="@+id/l2btn6"
+        android:layout_width="60dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginStart="70dp"
+        android:background="@drawable/g3x3c6"
+        android:onClick="on_click_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l2btn4" />
+
+    <Button
+        android:id="@+id/l2btn7"
+        android:layout_width="60dp"
+        android:layout_height="75dp"
+        android:background="@drawable/g3x3c7"
+        android:onClick="on_click_image"
+        app:layout_constraintStart_toEndOf="@+id/l2btn6"
+        app:layout_constraintTop_toTopOf="@+id/l2btn8" />
+
+    <Button
+        android:id="@+id/l2btn1"
+        android:layout_width="60dp"
+        android:layout_height="75dp"
+        android:background="@drawable/g3x3c1"
+        android:onClick="on_click_image"
+        app:layout_constraintStart_toEndOf="@+id/l2btn0"
+        app:layout_constraintTop_toTopOf="@+id/l2btn2" />
+
+    <Button
+        android:id="@+id/l2btn2"
+        android:layout_width="60dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/g3x3c2"
+        android:onClick="on_click_image"
+        app:layout_constraintBottom_toTopOf="@+id/l2btn5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintStart_toEndOf="@+id/l2btn1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/l2btn3"
+        android:layout_width="60dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginStart="70dp"
+        android:background="@drawable/g3x3c3"
+        android:onClick="on_click_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/l2btn4" />
+
+    <Button
+        android:id="@+id/l2btn0"
+        android:layout_width="60dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginStart="70dp"
+        android:background="@drawable/g3x3c0"
+        android:onClick="on_click_image"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/l2btn1" />
+
+    <Button
+        android:id="@+id/l2btn4"
+        android:layout_width="60dp"
+        android:layout_height="75dp"
+        android:background="@drawable/g3x3c4"
+        android:onClick="on_click_image"
+        app:layout_constraintStart_toEndOf="@+id/l2btn6"
+        app:layout_constraintTop_toBottomOf="@+id/l2btn2" />
+
+    <Button
+        android:id="@+id/l2btn8"
+        android:layout_width="60dp"
+        android:layout_height="75dp"
+        android:background="@drawable/g3x3c8"
+        android:onClick="on_click_image"
+        app:layout_constraintStart_toEndOf="@+id/l2btn7"
+        app:layout_constraintTop_toBottomOf="@+id/l2btn5" />
+
+    <TextView
+        android:id="@+id/timetextView"
+        android:layout_width="85dp"
+        android:layout_height="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.434"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="266dp" />
+
+    </android.support.constraint.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.slideingpuzzle.puzzleapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,12 +32,14 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         gameMode.setAdapter(adapter);
-        gameText = gameMode.getSelectedItem().toString();
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(),GameActivity.class);
 //                String message = userName.getText().toString();
+                gameText = gameMode.getSelectedItem().toString();
+                Log.d("prefix","gameactivity"+gameText);
                 intent.putExtra("prefix", gameText);
                 startActivity(intent);
 
