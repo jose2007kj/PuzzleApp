@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     //declaring button,spinner,editext
@@ -16,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText userName;
     private Spinner gameMode;
     private String gameText;
+    private String playerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +42,30 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(),GameActivity.class);
 //                String message = userName.getText().toString();
+                playerName=userName.getText().toString();
                 gameText = gameMode.getSelectedItem().toString();
                 Log.d("prefix","gameactivity"+gameText);
+                intent.putExtra("player_name", playerName);
                 intent.putExtra("prefix", gameText);
-                startActivity(intent);
+                if(validate()){
+                    startActivity(intent);
+                }
 
             }
         });
+    }
+
+    public boolean validate() {
+        boolean value = true;
+
+        if(playerName.isEmpty()){
+            userName.setError("Please Enter a user name");
+            value = false;
+        }if(gameText.contains("Please select a game level")){
+            Toast.makeText(this, "Please select a game level", Toast.LENGTH_SHORT).show();
+            value = false;
+        }
+
+        return value;
     }
 }

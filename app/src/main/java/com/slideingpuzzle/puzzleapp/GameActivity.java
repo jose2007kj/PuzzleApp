@@ -1,15 +1,17 @@
 package com.slideingpuzzle.puzzleapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Timer;
@@ -19,6 +21,11 @@ public class GameActivity extends AppCompatActivity {
     private int NO_OF_PIECES;
     private String BUTTON_NAME_PREFIX;
     int time_to_solve_puzzle = 1;
+    private String playerName;
+    private String gameLevel;
+    private SoundManager soundManager;
+    private int congratsSound;
+    private String imageName;
 
     //an array of buttons
     Button[] btn;
@@ -40,64 +47,55 @@ public class GameActivity extends AppCompatActivity {
     TextView timeTextView;
 
     Timer T;
-
-//    DBHelper myDB;
+    DBHelper myDB;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        String message = intent.getStringExtra("prefix");
+        gameLevel = intent.getStringExtra("prefix");
+        playerName = intent.getStringExtra("player_name");
+        myDB =new DBHelper(this);
         setContentView(R.layout.activity_game);
+        soundManager = new SoundManager(this);
+        congratsSound = soundManager.addSound(R.raw.congrats);
+        //the below code for a variavle for storing dynamic layout
         LinearLayout dynamicContent = (LinearLayout) findViewById(R.id.dynamic_content);
-        Log.d("prefix","prefix is+"+message);
-        switch(message){
+        Log.d("prefix","prefix is+"+gameLevel);
+        //dynamically adding 3 diifrent layouts for 3 levels,also setting btun prefix,no.of.buttons
+        switch(gameLevel){
             case "Level 1 (2x2)":
-                // assuming your Wizard content is in content_wizard.xml
                 NO_OF_PIECES = 4;
                 BUTTON_NAME_PREFIX = "btn";
+                imageName = "g2x2c";
                 View wizardView = getLayoutInflater()
                         .inflate(R.layout.levelone, dynamicContent, false);
-
-// add the inflated View to the layout
                 dynamicContent.addView(wizardView);
-                            break;
+                break;
             case "Level 2 (3x3)":
                 NO_OF_PIECES = 9;
                 BUTTON_NAME_PREFIX = "l2btn";
-                // assuming your Wizard content is in content_wizard.xml
+                imageName = "g3x3c";
                 View level2 = getLayoutInflater()
                         .inflate(R.layout.leveltwo, dynamicContent, false);
-
-// add the inflated View to the layout
                 dynamicContent.addView(level2);
-                            break;
+                break;
             default:
-                // assuming your Wizard content is in content_wizard.xml
                 NO_OF_PIECES = 16;
                 BUTTON_NAME_PREFIX = "l3btn";
+                imageName = "c";
                 View level3 = getLayoutInflater()
                         .inflate(R.layout.levelthree, dynamicContent, false);
-
-// add the inflated View to the layout
                 dynamicContent.addView(level3);
 
         }
-
-
-
-
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
         timeTextView = (TextView) findViewById(R.id.timetextView);
-//        myDB =new DBHelper(this);
-//        test_db();
         btn = new Button[NO_OF_PIECES];
         correct_id_seq = new int[NO_OF_PIECES];
         rand_id_seq = new int[NO_OF_PIECES];
 
-        // get buttons
+        // get buttons and store in an button array
         for(int i = 0; i < NO_OF_PIECES; i++) {
             Log.d("id","button prefix is"+BUTTON_NAME_PREFIX);
             Log.d("id","resources :"+this.getResources().getIdentifier(BUTTON_NAME_PREFIX + Integer.toString(i),"id", this.getPackageName()));
@@ -105,28 +103,40 @@ public class GameActivity extends AppCompatActivity {
             btn[i] = (Button) findViewById(this.getResources().getIdentifier(
                     BUTTON_NAME_PREFIX + Integer.toString(i), "id", this.getPackageName()));
         }
-        switch(message){
-            case "Level 1 (2x2)":
-                play_game(10, "g2x2c");
-                // assuming your Wizard content is in content_wizard.xml
-
-                break;
-            case "Level 2 (3x3)":
-                play_game(10, "g3x3c");
-
-                break;
-            default:
-                play_game(10, "c");
-
-        }
-        //first puzzle
-//        play_game(10, "c");
-
-        // Get the Intent that started this activity and extract the string
-
-
+        play_game(10, imageName);
     }
+    //code for share button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+    //code for share buttton
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
+        //code for sharing the app
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        String shareBody = "Hai i loved the puzzleApp its really amazing you too try";
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(sharingIntent, "Share PuzzleApp to your friends"));
+        //ends here
+
+        if (id == R.id.action_name) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    //function make array elements appear random
     public void rand_arr_elements(int[] arr) {
         Random random = new Random();
         int temp_index;
@@ -140,29 +150,6 @@ public class GameActivity extends AppCompatActivity {
             arr[temp_index] = temp_obj;
         }
     }
-
-
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        timeTextView = (TextView) findViewById(R.id.timetextView);
-//        myDB =new DBHelper(this);
-//        test_db();
-//
-//        // get buttons
-//        for(int i = 0; i < NO_OF_PIECES; i++) {
-//            btn[i] = (Button) findViewById(this.getResources().getIdentifier(
-//                    BUTTON_NAME_PREFIX + Integer.toString(i), "id", this.getPackageName()));
-//        }
-//        //first puzzle
-//        play_game(10, "c");
-//
-//    }
-
     public void play_game(int perusal_time_by_seconds, String image_name) {
 
         //set the values for the correct_id_seq array
@@ -263,6 +250,44 @@ public class GameActivity extends AppCompatActivity {
                 for(int i = 0; i < NO_OF_PIECES; i++){
                     btn[i].setClickable(false);
                 }
+
+                //below code for inserting into db
+                switch(gameLevel){
+                    case "Level 1 (2x2)":
+                        myDB.insertPlayer(playerName, time_to_solve_puzzle , 1,"g2x2c");
+                        break;
+                    case "Level 2 (3x3)":
+                        myDB.insertPlayer(playerName, time_to_solve_puzzle , 2,"g3x3c");
+                        break;
+                    default:
+                        myDB.insertPlayer(playerName, time_to_solve_puzzle , 3,"c");
+
+                }
+                //below code for printing db details
+                Cursor cursor = myDB.getAllPlayers();
+                if(cursor !=null){
+                    Log.i(" Feteched from db","================**** Player Ranking ****=========:");
+                    cursor.moveToFirst();
+                    do{
+                        String username =
+                                cursor.getString(cursor.getColumnIndex(DBHelper.USERNAME_COL));
+                        String duration =
+                                cursor.getString(cursor.getColumnIndex(DBHelper.DURATION_COL));
+                        String level =
+                                cursor.getString(cursor.getColumnIndex(DBHelper.LEVEL_COL));
+                        String date =
+                                cursor.getString(cursor.getColumnIndex(DBHelper.DATE_COL));
+                        String image =
+                                cursor.getString(cursor.getColumnIndex(DBHelper.IMAGE_NAME_COL));
+                        soundManager.play(congratsSound);
+                        Log.i(" Feteched from db","========================:");
+                        Log.d("Player:","Player:"+username);
+                        Log.d("Time took:","Time took:"+duration);
+                        Log.d("Game Level:","Game Level:"+level);
+                        Log.d("Image Name:","Image Name is:"+image);
+                        Log.i(" Feteched from db","========================:");
+                    } while (cursor.moveToNext());
+                }
             }
         }
         num_of_clicks++;
@@ -272,66 +297,4 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-
-
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-////        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-////
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-////        if (id == R.id.action_settings) {
-////            return true;
-////        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-//    private void test_db(){
-//        myDB.insertPlayer("Korah", 40 , 1,"c");
-//        myDB.insertPlayer("John", 60 , 1,"c");
-//        myDB.insertPlayer("Korah", 70 , 1,"c");
-//
-//        myDB.insertPlayer("Korah", 50 , 2,"c");
-//        myDB.insertPlayer("John", 40 , 2,"c");
-//        myDB.insertPlayer("Korah", 80 , 2,"c");
-//
-//        myDB.insertPlayer("Korah", 60 , 3,"c");
-//        myDB.insertPlayer("John", 47 , 3,"c");
-//        myDB.insertPlayer("Korah", 89 , 3,"c");
-//
-//        Cursor cursor = myDB.getAllPlayers();
-//
-//        if(cursor !=null){
-//            cursor.moveToFirst();
-//            do{
-//                String username =
-//                        cursor.getString(cursor.getColumnIndex(DBHelper.USERNAME_COL));
-//                String duration =
-//                        cursor.getString(cursor.getColumnIndex(DBHelper.DURATION_COL));
-//                String level =
-//                        cursor.getString(cursor.getColumnIndex(DBHelper.LEVEL_COL));
-//                String date =
-//                        cursor.getString(cursor.getColumnIndex(DBHelper.DATE_COL));
-//                String image =
-//                        cursor.getString(cursor.getColumnIndex(DBHelper.IMAGE_NAME_COL));
-//                Log.i("Player:", username + " "
-//                        + duration  + " "
-//                        + level + " "
-//                        + date + " "
-//                        + image);
-//
-//            } while (cursor.moveToNext());
-//        }
-//    }
 }

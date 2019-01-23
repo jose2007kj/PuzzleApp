@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PuzzleApp</string>
     <string-array name="game_mode">
+        <item>Please select a game level</item>
         <item>Level 1 (2x2)</item>
         <item>Level 2 (3x3)</item>
         <item>Level 3 (4x4)</item>
