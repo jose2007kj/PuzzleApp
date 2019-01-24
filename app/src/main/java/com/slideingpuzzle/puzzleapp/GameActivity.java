@@ -105,6 +105,21 @@ public class GameActivity extends AppCompatActivity {
         }
         play_game(10, imageName);
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        soundManager.resume();
+//        congratsSound = soundManager.addSound(R.raw.congrats);
+    }
+
+    protected void onPause(){
+        super.onPause();
+        soundManager.pause();
+    }
+    protected void onDestroy(){
+        super.onDestroy();
+        soundManager.releaseSoundPool();
+    }
     //code for share button
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -250,7 +265,7 @@ public class GameActivity extends AppCompatActivity {
                 for(int i = 0; i < NO_OF_PIECES; i++){
                     btn[i].setClickable(false);
                 }
-
+                soundManager.play(congratsSound);
                 //below code for inserting into db
                 switch(gameLevel){
                     case "Level 1 (2x2)":
@@ -279,7 +294,7 @@ public class GameActivity extends AppCompatActivity {
                                 cursor.getString(cursor.getColumnIndex(DBHelper.DATE_COL));
                         String image =
                                 cursor.getString(cursor.getColumnIndex(DBHelper.IMAGE_NAME_COL));
-                        soundManager.play(congratsSound);
+
                         Log.i(" Feteched from db","========================:");
                         Log.d("Player:","Player:"+username);
                         Log.d("Time took:","Time took:"+duration);
