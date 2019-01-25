@@ -56,6 +56,7 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = getIntent();
         gameLevel = intent.getStringExtra("prefix");
         playerName = intent.getStringExtra("player_name");
+        imageName=intent.getStringExtra("image_prefix");
         myDB =new DBHelper(this);
         setContentView(R.layout.activity_game);
         soundManager = new SoundManager(this);
@@ -68,7 +69,7 @@ public class GameActivity extends AppCompatActivity {
             case "Level 1 (2x2)":
                 NO_OF_PIECES = 4;
                 BUTTON_NAME_PREFIX = "btn";
-                imageName = "g2x2c";
+//                imageName = "g2x2c";
                 View wizardView = getLayoutInflater()
                         .inflate(R.layout.levelone, dynamicContent, false);
                 dynamicContent.addView(wizardView);
@@ -76,7 +77,7 @@ public class GameActivity extends AppCompatActivity {
             case "Level 2 (3x3)":
                 NO_OF_PIECES = 9;
                 BUTTON_NAME_PREFIX = "l2btn";
-                imageName = "g3x3c";
+//                imageName = "g3x3c";
                 View level2 = getLayoutInflater()
                         .inflate(R.layout.leveltwo, dynamicContent, false);
                 dynamicContent.addView(level2);
@@ -84,7 +85,7 @@ public class GameActivity extends AppCompatActivity {
             default:
                 NO_OF_PIECES = 16;
                 BUTTON_NAME_PREFIX = "l3btn";
-                imageName = "c";
+//                imageName = "c";
                 View level3 = getLayoutInflater()
                         .inflate(R.layout.levelthree, dynamicContent, false);
                 dynamicContent.addView(level3);

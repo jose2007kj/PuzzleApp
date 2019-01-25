@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),GameActivity.class);
+                Intent intent=new Intent(getApplicationContext(),SelectImageActivity.class);
 //                String message = userName.getText().toString();
                 playerName=userName.getText().toString();
                 gameText = gameMode.getSelectedItem().toString();
