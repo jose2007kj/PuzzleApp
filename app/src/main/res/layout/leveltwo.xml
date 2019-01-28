@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GameActivity"
+    android:theme="@style/bg"
     tools:layout_editor_absoluteY="81dp">
 
     <Button
@@ -60,7 +61,7 @@
         android:onClick="on_click_image"
         app:layout_constraintBottom_toTopOf="@+id/l2btn5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/l2btn1"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,8 +94,8 @@
         android:layout_height="75dp"
         android:background="@drawable/g3x3c4"
         android:onClick="on_click_image"
-        app:layout_constraintStart_toEndOf="@+id/l2btn6"
-        app:layout_constraintTop_toBottomOf="@+id/l2btn2" />
+        app:layout_constraintStart_toEndOf="@+id/l2btn3"
+        app:layout_constraintTop_toTopOf="@+id/l2btn5" />
 
     <Button
         android:id="@+id/l2btn8"
@@ -105,11 +106,28 @@
         app:layout_constraintStart_toEndOf="@+id/l2btn7"
         app:layout_constraintTop_toBottomOf="@+id/l2btn5" />
 
+    <!--<TextView-->
+        <!--android:id="@+id/timetextView"-->
+        <!--android:layout_width="85dp"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:layout_marginTop="32dp"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.434"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/l2btn8" />-->
     <TextView
         android:id="@+id/timetextView"
-        android:layout_width="85dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="320dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginLeft="62dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/timer"
+        android:textSize="25dp"
+        android:paddingLeft="80dp"
+        android:paddingTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.434"
         app:layout_constraintStart_toStartOf="parent"

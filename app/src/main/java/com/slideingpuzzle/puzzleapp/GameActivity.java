@@ -1,8 +1,11 @@
 package com.slideingpuzzle.puzzleapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -267,6 +270,27 @@ public class GameActivity extends AppCompatActivity {
                     btn[i].setClickable(false);
                 }
                 soundManager.play(congratsSound);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(GameActivity.this);
+                        alertDialog.setTitle("Game Completed");
+                        alertDialog.setMessage(playerName +" You took "+time_to_solve_puzzle+" seconds to solve the game!!");
+                        alertDialog.setPositiveButton("ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        Intent intent = new Intent(getApplicationContext(),ScoresActivity.class);
+                                        intent.putExtra("name",playerName);
+                                        intent.putExtra("score",time_to_solve_puzzle);
+                                        startActivity(intent);
+                                    }
+                                });
+                        alertDialog.show();
+
+                        //Do something after 100ms
+                    }
+                }, 5000);
                 //below code for inserting into db
                 switch(gameLevel){
                     case "Level 1 (2x2)":

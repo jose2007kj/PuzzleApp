@@ -13,6 +13,8 @@ public class SelectImageActivity extends AppCompatActivity {
     private Button btn1,btn2,btn3;
     private String gameLevel;
     private String playerName;
+    private int backgroundSong;
+    private SoundManager soundManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,9 +23,13 @@ public class SelectImageActivity extends AppCompatActivity {
         btn2=findViewById(R.id.selectbtn1);
         btn3=findViewById(R.id.selectbtn2);
         title=findViewById(R.id.textView);
+        soundManager = new SoundManager(this);
+
         Intent intent = getIntent();
         gameLevel = intent.getStringExtra("prefix");
         playerName = intent.getStringExtra("player_name");
+        backgroundSong = soundManager.addSound(R.raw.backsong);
+        soundManager.play(backgroundSong);
         switch(gameLevel){
             case "Level 1 (2x2)":
                 title.setText("LEVEL 1");
@@ -164,7 +170,7 @@ public class SelectImageActivity extends AppCompatActivity {
 
                     }
                 });
-//                btn3.setBackgroundResource(R.drawable.leveloneoneone);
+                btn3.setBackgroundResource(R.drawable.c);
                 btn3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -183,5 +189,20 @@ public class SelectImageActivity extends AppCompatActivity {
 
         }
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        soundManager.resume();
+//        congratsSound = soundManager.addSound(R.raw.congrats);
+    }
+
+    protected void onPause(){
+        super.onPause();
+        soundManager.pause();
+    }
+    protected void onDestroy(){
+        super.onDestroy();
+        soundManager.releaseSoundPool();
     }
 }

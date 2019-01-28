@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     //declaring button,spinner,editext
-    private Button start;
+    private Button level1,level2,level3;
     private EditText userName;
     private Spinner gameMode;
     private String gameText;
@@ -25,25 +25,59 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        start = findViewById(R.id.next);
+        level1 = findViewById(R.id.level1);
+        level2=findViewById(R.id.level2);
+        level3=findViewById(R.id.level3);
         userName =findViewById(R.id.username);
-        gameMode=findViewById(R.id.game_mode);
+//        gameMode=findViewById(R.id.game_mode);
         // Create an ArrayAdapter using the string array and a default spinner layout
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.game_mode, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        gameMode.setAdapter(adapter);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.game_mode, android.R.layout.simple_spinner_item);
+//        // Specify the layout to use when the list of choices appears
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        // Apply the adapter to the spinner
+//        gameMode.setAdapter(adapter);
 
-        start.setOnClickListener(new View.OnClickListener() {
+        level1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(),SelectImageActivity.class);
 //                String message = userName.getText().toString();
                 playerName=userName.getText().toString();
-                gameText = gameMode.getSelectedItem().toString();
+                gameText = "Level 1 (2x2)";
+                Log.d("prefix","gameactivity"+gameText);
+                intent.putExtra("player_name", playerName);
+                intent.putExtra("prefix", gameText);
+                if(validate()){
+                    startActivity(intent);
+                }
+
+            }
+        });
+        level2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),SelectImageActivity.class);
+//                String message = userName.getText().toString();
+                playerName=userName.getText().toString();
+                gameText = "Level 2 (3x3)";
+                Log.d("prefix","gameactivity"+gameText);
+                intent.putExtra("player_name", playerName);
+                intent.putExtra("prefix", gameText);
+                if(validate()){
+                    startActivity(intent);
+                }
+
+            }
+        });
+        level3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),SelectImageActivity.class);
+//                String message = userName.getText().toString();
+                playerName=userName.getText().toString();
+                gameText = "Level 3 (4x4)";
                 Log.d("prefix","gameactivity"+gameText);
                 intent.putExtra("player_name", playerName);
                 intent.putExtra("prefix", gameText);
@@ -61,10 +95,11 @@ public class MainActivity extends AppCompatActivity {
         if(playerName.isEmpty()){
             userName.setError("Please Enter a user name");
             value = false;
-        }if(gameText.contains("Please select a game level")){
-            Toast.makeText(this, "Please select a game level", Toast.LENGTH_SHORT).show();
-            value = false;
         }
+//        if(gameText.contains("Please select a game level")){
+//            Toast.makeText(this, "Please select a game level", Toast.LENGTH_SHORT).show();
+//            value = false;
+//        }
 
         return value;
     }

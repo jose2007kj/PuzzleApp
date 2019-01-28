@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:theme="@style/bg"
     android:layout_height="match_parent"
 
     tools:context=".GameActivity">
@@ -188,11 +189,28 @@
         app:layout_constraintStart_toEndOf="@+id/l3btn14"
         app:layout_constraintTop_toBottomOf="@+id/l3btn11" />
 
+    <!--<TextView-->
+        <!--android:id="@+id/timetextView"-->
+        <!--android:layout_width="85dp"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.5"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/l3btn13" />-->
     <TextView
         android:id="@+id/timetextView"
-        android:layout_width="85dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="320dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginLeft="62dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/timer"
+        android:textSize="25dp"
+        android:paddingLeft="80dp"
+        android:paddingTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

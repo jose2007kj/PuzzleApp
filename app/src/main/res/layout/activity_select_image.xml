@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".SelectImageActivity">
 
     <ScrollView
@@ -14,29 +15,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:text="TextView"
-                android:layout_marginTop="30dp"/>
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-20dp"
+
+                    app:srcCompat="@drawable/banner" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="#FFF"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </FrameLayout>
 
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="33dp"
-                android:layout_marginTop="20dp"
-                android:text="TextView"
-                tools:text="Please Select an image to start the game" />
 
             <Button
                 android:id="@+id/selectbtn0"
                 android:layout_width="match_parent"
-                android:layout_height="231dp"
-                android:text="Button"
-                android:layout_marginTop="60dp"
+                android:layout_height="140dp"
+
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="-30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="64dp" />
@@ -44,8 +53,11 @@
             <Button
                 android:id="@+id/selectbtn1"
                 android:layout_width="match_parent"
-                android:layout_height="159dp"
-                android:text="Button"
+                android:layout_height="140dp"
+
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="240dp" />
@@ -53,11 +65,17 @@
             <Button
                 android:id="@+id/selectbtn2"
                 android:layout_width="match_parent"
-                android:layout_height="159dp"
-                android:text="Button"
+                android:layout_height="140dp"
+
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="416dp" />
+
+
         </LinearLayout>
     </ScrollView>
 
